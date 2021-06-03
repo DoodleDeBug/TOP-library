@@ -16,6 +16,7 @@ addBookToLibrary('hobbit', 'someGuy', '444', 'read');
 addBookToLibrary('ff', 'Guy', '884', ' not read');
 
 // console.log(myLibrary)
+
 const container = document.querySelector('.book-container');
 
 function makeCard(name, author, pages, status) {
@@ -24,6 +25,7 @@ function makeCard(name, author, pages, status) {
     card.classList.add('book-card');
     container.appendChild(card);
     const title = document.createElement('h2');
+    title.classList.add('title');
     title.innerText = name;
     card.appendChild(title);
     const auth = document.createElement('p');
