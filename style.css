@@ -27,7 +27,7 @@ h1 {
 }
 
 .btn {
-
+    cursor: pointer;
 }
 
 .book-container {
@@ -60,4 +60,34 @@ h1 {
 
 .book-card p {
     text-align: left;
+}
+
+
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal-contents{
+    background-color: white;
+    padding: 2rem 4rem;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1rem;
+    margin-right: -2rem;
+}
+
+.hidden {
+    display: none;
 }

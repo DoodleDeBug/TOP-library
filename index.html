@@ -12,26 +12,27 @@
 <body>
     <h1 class="center">DoodleDeBug's Library</h1>
     <div class="btn-container center">
-        <button class="btn">New Book</button>
+        <button class="btn" id='new'>New Book</button>
     </div>
     <div class="book-container center"></div>
 
-    <div class="modal">
+    <div class="modal hidden">
         <div class="modal-contents">
+            <div class="close btn"><span>X</span></div>
             <h2>New Book</h2>
             <form action="">
-                <label for="name">Title of the book:</label>
-                <input type="text" name="name" id="name" placeholder="Book Title">
-                <label for="author">Author:</label>
-                <input type="text" name="author" id="author" placeholder="Book Author">
-                <label for="pages">Number of Pages:</label>
-                <input type="number" name="pages" id="pages" min="1">
-                <label for="status">Status:</label>
+                <label for="name">Title of the book:</label><br>
+                <input type="text" name="name" id="name" placeholder="Book Title"><br>
+                <label for="author">Author:</label><br>
+                <input type="text" name="author" id="author" placeholder="Book Author"><br>
+                <label for="pages">Number of Pages:</label><br>
+                <input type="number" name="pages" id="pages" min="1"><br>
+                <label for="status">Status:</label><br>
                 <input type="radio" id="read" name="status" value="read">
-                <label for="read">Read</label>
+                <label for="read">Read</label><br>
                 <input type="radio" id="unread" name="status" value="unread">
-                <label for="unread">Not Read</label>
-                <input type="submit" value="Create Book">
+                <label for="unread">Not Read</label><br>
+                <input class='btn' type="submit" value="Create Book">
             </form>
         </div>
     </div>
