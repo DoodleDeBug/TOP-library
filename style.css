@@ -13,12 +13,12 @@
 }
 
 body {
-  background-color: aqua;
+  background-color: rgb(36, 36, 36);
 }
 
 h1 {
+  color: rgb(255, 211, 17);
   margin-top: 1.5rem;
-  background-color: palevioletred;
   padding: 0.5rem;
   font-size: 80px;
   letter-spacing: 5px;
@@ -26,7 +26,6 @@ h1 {
 }
 
 .btn-container {
-  /* background-color: peru; */
   display: flex;
   justify-content: flex-end;
   /* flex-direction: row; */
@@ -39,23 +38,27 @@ h1 {
 }
 
 .book-container {
-  background-color: purple;
+  background-color: rgb(255, 211, 17);
   padding: 1rem 5rem;
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
   gap: 1rem;
+  margin: 0 auto;
+  width: fit-content;
   justify-content: center;
 }
 
 .book-card {
   background-color: rgb(212, 212, 212);
   padding: 1rem 1.5rem;
-  height: 200px;
-  width: 300px;
+  /* height: 200px; */
+  min-width: 320px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-grow: 1;
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.336);
   border-radius: 5px;
 }
