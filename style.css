@@ -29,7 +29,7 @@ h1 {
   display: flex;
   justify-content: flex-end;
   /* flex-direction: row; */
-  padding: 0.5rem 2rem 0.5rem 0;
+  padding: 1rem 2rem;
 }
 
 .btn {
@@ -44,14 +44,12 @@ h1 {
 
 .book-container {
   background-color: rgb(255, 211, 17);
-  padding: 2rem 5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
   gap: 1rem;
-  margin: 0 auto;
-  width: fit-content;
-  justify-content: right;
+  margin: 0 5rem;
 }
 
 .book-card {
@@ -63,7 +61,6 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-grow: 1;
   box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
 }
@@ -88,7 +85,7 @@ h1 {
 
 .modal {
   background-color: rgba(0, 0, 0, 0.788);
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 100%;
   width: 100%;
