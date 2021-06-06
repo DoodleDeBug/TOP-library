@@ -23,7 +23,7 @@ function makeCard(name, author, pages, status, index) {
   // console.log(index)
   const card = document.createElement("div");
   card.classList.add("book-card");
-  card.setAttribute("data-index-number", index);
+  //   card.setAttribute("data-index-number", index);
   container.appendChild(card);
   const closeCard = document.createElement("div");
   closeCard.innerHTML = '<span class="remove x-btn">X</span>';
@@ -69,7 +69,29 @@ function removeCard(e) {
 const newBtn = document.querySelector(".new");
 newBtn.addEventListener("click", newBookForm);
 
+const modal = document.querySelector(".modal");
 function newBookForm() {
-  const form = document.querySelector(".modal");
-  form.classList.toggle("hidden");
+  modal.classList.toggle("hidden");
 }
+
+const form = document.querySelector("#form");
+form.addEventListener("submit", createBook);
+
+function createBook() {
+  console.log("heello am creating book");
+  const title = document.querySelector("input[name=name]").value;
+  const auth = document.querySelector("input[name=author]").value;
+  const pages = document.querySelector("input[name=pages]").value;
+  const status = document.querySelector("input[name=status]:checked").value;
+  console.log(`${title} ${auth} ${pages} ${status}`);
+
+  addBookToLibrary(title, auth, pages, status);
+  console.log(myLibrary);
+  addBookToLibrary("ffrfr", "Gurrrrrry", "8", "read");
+  console.log(myLibrary);
+
+  displayCards();
+}
+
+const close = document.querySelector(".close-modal");
+close.addEventListener("click", newBookForm);
