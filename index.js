@@ -35,12 +35,12 @@ addBookToLibrary("anotherf", "bob", "8", " not read");
 
 function createBook(e) {
   e.preventDefault();
-  console.log("heello am creating book");
+  //   console.log("heello am creating book");
   const title = document.querySelector("input[name=name]").value;
   const auth = document.querySelector("input[name=author]").value;
   const pages = document.querySelector("input[name=pages]").value;
   const status = document.querySelector("input[name=status]:checked").value;
-  console.log(`${title} ${auth} ${pages} ${status}`);
+  //   console.log(`${title} ${auth} ${pages} ${status}`);
 
   addBookToLibrary(title, auth, pages, status);
   console.log(myLibrary);
