@@ -69,4 +69,7 @@ function removeCard(e) {
 const newBtn = document.querySelector(".new");
 newBtn.addEventListener("click", newBookForm);
 
-function newBookForm() {}
+function newBookForm() {
+  const form = document.querySelector(".modal");
+  form.classList.toggle("hidden");
+}
