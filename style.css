@@ -37,9 +37,14 @@ h1 {
   padding: 5px 10px;
 }
 
+.new {
+  background-color: rgb(255, 211, 17);
+  /* border: 2px inset black; */
+}
+
 .book-container {
   background-color: rgb(255, 211, 17);
-  padding: 1rem 5rem;
+  padding: 2rem 5rem;
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
@@ -50,7 +55,7 @@ h1 {
 }
 
 .book-card {
-  background-color: rgb(212, 212, 212);
+  background-color: rgb(240, 240, 240);
   padding: 1rem 1.5rem;
   /* height: 200px; */
   min-width: 320px;
@@ -59,7 +64,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   flex-grow: 1;
-  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.336);
+  box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
 }
 
