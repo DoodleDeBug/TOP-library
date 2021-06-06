@@ -33,7 +33,8 @@ addBookToLibrary("The Diary of A Wimpy Kid", "kinney", "44", "read");
 addBookToLibrary("anotherf", "bob", "8", " not read");
 // console.log(myLibrary)
 
-function createBook() {
+function createBook(e) {
+  e.preventDefault();
   console.log("heello am creating book");
   const title = document.querySelector("input[name=name]").value;
   const auth = document.querySelector("input[name=author]").value;
