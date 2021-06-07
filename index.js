@@ -23,6 +23,8 @@ function toggleBookForm() {
   display.clearForm();
 }
 
+///local storage
+
 //Add books to UI
 const container = document.querySelector(".book-container");
 
@@ -84,6 +86,7 @@ class display {
   //toggle status
 
   static toggleStatus(book, e) {
+    console.log("change");
     e.target.classList.toggle("read");
     if (e.target.innerText === "Read") {
       book.status = "Unread";
