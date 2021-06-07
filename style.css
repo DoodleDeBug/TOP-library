@@ -83,6 +83,14 @@ h1 {
   text-align: left;
 }
 
+.status {
+  background-color: red;
+}
+
+.read {
+  background-color: green !important;
+}
+
 .modal {
   background-color: rgba(0, 0, 0, 0.788);
   position: fixed;
