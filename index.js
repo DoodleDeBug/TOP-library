@@ -80,6 +80,19 @@ class display {
     document.querySelector("#author").value = "";
     document.querySelector("#pages").value = "";
   }
+
+  //toggle status
+
+  static toggleStatus(book, e) {
+    e.target.classList.toggle("read");
+    if (e.target.innerText === "Read") {
+      book.status = "Unread";
+      e.target.innerText = "Unread";
+    } else {
+      e.target.innerText = "Read";
+      book.status = "Read";
+    }
+  }
 }
 
 /// get form input to create new book
@@ -101,6 +114,13 @@ function createBook(e) {
   display.makeCard(book);
   display.clearForm();
 
+  // event: change status
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("status")) {
+      display.toggleStatus(book, e);
+    }
+  });
+
   toggleBookForm();
 }
 
@@ -111,21 +131,7 @@ document.addEventListener("DOMContentLoaded", display.displayCards);
 container.addEventListener("click", (e) => {
   if (e.target.classList.contains("remove")) {
     e.target.parentElement.parentElement.remove();
-
     let index = e.target.parentElement.parentElement.classList;
     myLibrary.splice(index, 1);
-  }
-});
-
-// event: change status
-container.addEventListener("click", (e) => {
-  if (e.target.classList.contains("status")) {
-    console.log("change status");
-    e.target.classList.toggle("read");
-    if (e.target.innerText === "Read") {
-      e.target.innerText = "Unread";
-    } else {
-      e.target.innerText = "Read";
-    }
   }
 });
