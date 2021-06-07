@@ -8,13 +8,6 @@ function Book(name, author, pages, status) {
   this.status = status;
 }
 
-function addBookToLibrary(name, author, pages, status) {
-  myLibrary.push(new Book(name, author, pages, status));
-}
-
-addBookToLibrary("The Diary of A Wimpy Kid", "kinney", "44", "read");
-// console.log(myLibrary)
-
 ///BRing up form for new book
 
 const newBtn = document.querySelector(".new");
@@ -31,7 +24,6 @@ function toggleBookForm() {
 }
 
 //Add books to UI
-
 const container = document.querySelector(".book-container");
 
 let bookIndex;
@@ -98,12 +90,10 @@ function createBook(e) {
   //prevent defualt behaviour of submit
   e.preventDefault();
 
-  //   console.log("heello am creating book");
   const title = document.querySelector("#name").value;
   const auth = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
   const status = document.querySelector("input[name=status]:checked").value;
-  //   console.log(`${title} ${auth} ${pages} ${status}`);
 
   const book = new Book(title, auth, pages, status);
   display.addBook(book);
@@ -115,7 +105,6 @@ function createBook(e) {
 }
 
 ///event: display books
-
 document.addEventListener("DOMContentLoaded", display.displayCards);
 
 // event: remove book
@@ -129,7 +118,6 @@ container.addEventListener("click", (e) => {
 });
 
 // event: change status
-
 container.addEventListener("click", (e) => {
   if (e.target.classList.contains("status")) {
     console.log("change status");
