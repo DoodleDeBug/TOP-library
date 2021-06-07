@@ -8,103 +8,129 @@ function Book(name, author, pages, status) {
   this.status = status;
 }
 
-const newBtn = document.querySelector(".new");
-newBtn.addEventListener("click", newBookForm); //click button, toggle modal
-
-const close = document.querySelector(".close-modal");
-close.addEventListener("click", newBookForm); //click button, toggle modal
-
-const modal = document.querySelector(".modal");
-
-function newBookForm() {
-  modal.classList.toggle("hidden"); // show modal
-}
-
-const form = document.querySelector("#form");
-form.addEventListener("submit", createBook);
-
 function addBookToLibrary(name, author, pages, status) {
   myLibrary.push(new Book(name, author, pages, status));
 }
 
-addBookToLibrary("hobbit", "someGuy", "444", "read");
-addBookToLibrary("ff", "Guy", "884", " not read");
 addBookToLibrary("The Diary of A Wimpy Kid", "kinney", "44", "read");
-addBookToLibrary("anotherf", "bob", "8", " not read");
 // console.log(myLibrary)
 
-function createBook(e) {
-  e.preventDefault();
-  //   console.log("heello am creating book");
-  const title = document.querySelector("input[name=name]").value;
-  const auth = document.querySelector("input[name=author]").value;
-  const pages = document.querySelector("input[name=pages]").value;
-  const status = document.querySelector("input[name=status]:checked").value;
-  //   console.log(`${title} ${auth} ${pages} ${status}`);
+///BRing up form for new book
 
-  addBookToLibrary(title, auth, pages, status);
-  console.log(myLibrary);
+const newBtn = document.querySelector(".new");
+newBtn.addEventListener("click", toggleBookForm); //click button, toggle modal
 
-  displayCards();
+const close = document.querySelector(".close-modal");
+close.addEventListener("click", toggleBookForm); //click button, toggle modal
+
+const modal = document.querySelector(".modal");
+
+function toggleBookForm() {
+  modal.classList.toggle("hidden"); // show modal
+  display.clearForm();
 }
+
+//Add books to UI
 
 const container = document.querySelector(".book-container");
 
-function makeCard(name, author, pages, status, index) {
-  //   console.log(index);
-  const card = document.createElement("div");
-  card.classList.add("book-card");
-  container.appendChild(card);
-  const closeCard = document.createElement("div");
-  closeCard.innerHTML = '<span class="remove x-btn">X</span>';
-  closeCard.classList.add("btn-container");
-  closeCard.classList.add(index);
-  card.appendChild(closeCard);
-  const title = document.createElement("h2");
-  title.classList.add("title");
-  title.innerText = name;
-  card.appendChild(title);
-  const auth = document.createElement("p");
-  auth.innerText = `Author: ${author}`;
-  card.appendChild(auth);
-  const page = document.createElement("p");
-  page.innerText = `Pages: ${pages}`;
-  card.appendChild(page);
-  const stat = document.createElement("p");
-  stat.innerText = `Status: ${status}`;
-  card.appendChild(stat);
-}
+let bookIndex;
 
-function displayCards() {
-  while (container.firstChild) {
-    // removes all the caRDS
-    container.removeChild(container.lastChild);
+class display {
+  //add book to myLibrary
+  static addBook(book) {
+    myLibrary.push(book);
   }
 
-  myLibrary.forEach((item) =>
-    makeCard(
-      item.name,
-      item.author,
-      item.pages,
-      item.status,
-      myLibrary.indexOf(item)
-    )
-  );
+  static indexBook(book) {
+    bookIndex = myLibrary.indexOf(book);
+  }
+
+  static displayCards() {
+    const books = myLibrary;
+    books.forEach((book) => display.makeCard(book));
+  }
+
+  static makeCard(book) {
+    // console.log(bookIndex);
+    const card = document.createElement("div");
+    card.classList.add("book-card");
+    card.classList.add(bookIndex);
+    container.appendChild(card);
+    const closeCard = document.createElement("div");
+    closeCard.innerHTML = '<span class="remove x-btn">X</span>';
+    closeCard.classList.add("btn-container");
+    card.appendChild(closeCard);
+    const title = document.createElement("h2");
+    title.classList.add("title");
+    title.innerText = book.name;
+    card.appendChild(title);
+    const auth = document.createElement("p");
+    auth.innerText = `Author: ${book.author}`;
+    card.appendChild(auth);
+    const page = document.createElement("p");
+    page.innerText = `Pages: ${book.pages}`;
+    card.appendChild(page);
+    const stat = document.createElement("p");
+    stat.innerText = `Status:`;
+    card.appendChild(stat);
+    const statBtn = document.createElement("button");
+    statBtn.classList.add("btn");
+    statBtn.classList.add("status");
+    statBtn.innerText = `${book.status}`;
+    card.appendChild(statBtn);
+  }
+
+  //clear the form
+  static clearForm() {
+    document.querySelector("#name").value = "";
+    document.querySelector("#author").value = "";
+    document.querySelector("#pages").value = "";
+  }
 }
 
-displayCards();
+/// get form input to create new book
+const form = document.querySelector("#form");
+form.addEventListener("submit", createBook);
 
-const remove = Array.from(document.querySelectorAll(".remove"));
-console.log(remove);
-remove.forEach((card) => card.addEventListener("click", removeCard));
+function createBook(e) {
+  //prevent defualt behaviour of submit
+  e.preventDefault();
 
-function removeCard(e) {
-  let index = e.currentTarget.parentElement.classList[1];
-  console.log(index);
-  myLibrary.splice(index, 1);
-  console.log(remove);
-  remove.splice(index, 1);
-  console.log(remove);
-  displayCards();
-  console.log(myLibrary);
+  //   console.log("heello am creating book");
+  const title = document.querySelector("#name").value;
+  const auth = document.querySelector("#author").value;
+  const pages = document.querySelector("#pages").value;
+  const status = document.querySelector("input[name=status]:checked").value;
+  //   console.log(`${title} ${auth} ${pages} ${status}`);
+
+  const book = new Book(title, auth, pages, status);
+  display.addBook(book);
+  display.indexBook(book);
+  display.makeCard(book);
+  display.clearForm();
+
+  toggleBookForm();
 }
+
+///event: display books
+
+document.addEventListener("DOMContentLoaded", display.displayCards);
+
+// event: remove book
+container.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove")) {
+    e.target.parentElement.parentElement.remove();
+
+    let index = e.target.parentElement.parentElement.classList;
+    myLibrary.splice(index, 1);
+  }
+});
+
+// event: change status
+
+container.addEventListener("click", (e) => {
+  if (e.target.classList.contains("status")) {
+    console.log("change status");
+  }
+});
