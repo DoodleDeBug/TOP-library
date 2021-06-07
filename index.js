@@ -77,6 +77,7 @@ class display {
     const statBtn = document.createElement("button");
     statBtn.classList.add("btn");
     statBtn.classList.add("status");
+    book.status === "Read" ? statBtn.classList.add("read") : null;
     statBtn.innerText = `${book.status}`;
     card.appendChild(statBtn);
   }
@@ -132,5 +133,11 @@ container.addEventListener("click", (e) => {
 container.addEventListener("click", (e) => {
   if (e.target.classList.contains("status")) {
     console.log("change status");
+    e.target.classList.toggle("read");
+    if (e.target.innerText === "Read") {
+      e.target.innerText = "Unread";
+    } else {
+      e.target.innerText = "Read";
+    }
   }
 });
