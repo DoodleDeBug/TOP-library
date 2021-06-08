@@ -49,6 +49,7 @@ h1 {
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
+  justify-content: center;
   gap: 1rem;
   margin: 0 5rem;
   min-width: 370px;
@@ -58,12 +59,12 @@ h1 {
   background-color: rgb(240, 240, 240);
   padding: 1rem 1.5rem;
   min-width: 320px;
-  /* max-width: 350px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
+  flex-grow: 1;
 }
 
 .x-btn {
@@ -120,6 +121,7 @@ h3 {
   text-align: center;
   font-size: 35px;
   margin-bottom: 1.5rem;
+  transform: translateY(-1rem);
 }
 
 .modal-contents input {
@@ -147,8 +149,8 @@ h3 {
   display: none;
 }
 
-@media (max-width: 1213px) {
+/* @media (max-width: 1213px) {
   .book-container {
     justify-content: center;
   }
-}
+} */
