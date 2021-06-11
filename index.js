@@ -1,5 +1,3 @@
-// let myLibrary = [];
-
 function Book(name, author, pages, status) {
   // the constructor...
   this.name = name;
@@ -46,9 +44,6 @@ class Store {
     const books = Store.getBooks();
     console.log(name);
     if (e.target.classList.contains("remove")) {
-      // let index = e.target.parentElement.parentElement.classList;
-      // myLibrary.splice(index, 1);
-
       books.forEach((book, index) => {
         if (book.name === name) {
           books.splice(index, 1);
@@ -66,25 +61,14 @@ const container = document.querySelector(".book-container");
 let bookIndex;
 
 class display {
-  //add book to myLibrary
-  // static addBook(book) {
-  //   myLibrary.push(book);
-  // }
-
-  // static indexBook(book) {
-  //   bookIndex = myLibrary.indexOf(book);
-  // }
-
   static displayCards() {
     const books = Store.getBooks();
     books.forEach((book) => display.makeCard(book));
   }
 
   static makeCard(book) {
-    // console.log(bookIndex);
     const card = document.createElement("div");
     card.classList.add("book-card");
-    card.classList.add(bookIndex);
     container.appendChild(card);
     const closeCard = document.createElement("div");
     closeCard.innerHTML = '<span class="remove x-btn">X</span>';
@@ -119,7 +103,6 @@ class display {
   }
 
   //toggle status
-
   static toggleStatus(book, e) {
     console.log("change");
     e.target.classList.toggle("read");
@@ -135,8 +118,6 @@ class display {
   static deleteBook(e) {
     if (e.target.classList.contains("remove")) {
       e.target.parentElement.parentElement.remove();
-      // let index = e.target.parentElement.parentElement.classList;
-      // myLibrary.splice(index, 1);
     }
   }
 }
@@ -156,15 +137,11 @@ function createBook(e) {
 
   const book = new Book(title, auth, pages, status);
 
-  // display.addBook(book);
+  //add book to ui
+  display.makeCard(book);
 
   //add book to local storage
   Store.addBook(book);
-
-  // display.indexBook(book);
-
-  //add book to ui
-  display.makeCard(book);
 
   // clear form
   display.clearForm();
