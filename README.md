@@ -12,4 +12,4 @@ TOP project - LIBRARY
 * code could be cleaner/drier
 
 I had some difficulty figuring out how to remove cards/books but some googling later, I figured it out :)
-Also, this was the first time I'd used local storage so that was fun, and I'm glad I know it now, exicted to use it in the future
+Also, this was the first time I'd used local storage so that was fun, still not *100%* on it but hoping to improve as I go :)
