@@ -1,4 +1,4 @@
-let myLibrary = [];
+// let myLibrary = [];
 
 function Book(name, author, pages, status) {
   // the constructor...
@@ -25,6 +25,41 @@ function toggleBookForm() {
 
 ///local storage
 
+class Store {
+  static getBooks() {
+    let books;
+    if (localStorage.getItem("books") === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem("books"));
+    }
+
+    return books;
+  }
+  static addBook(book) {
+    const books = Store.getBooks();
+    books.push(book);
+
+    localStorage.setItem("books", JSON.stringify(books));
+  }
+  static removeBook(name, e) {
+    const books = Store.getBooks();
+    console.log(name);
+    if (e.target.classList.contains("remove")) {
+      // let index = e.target.parentElement.parentElement.classList;
+      // myLibrary.splice(index, 1);
+
+      books.forEach((book, index) => {
+        if (book.name === name) {
+          books.splice(index, 1);
+        }
+      });
+
+      localStorage.setItem("books", JSON.stringify(books));
+    }
+  }
+}
+
 //Add books to UI
 const container = document.querySelector(".book-container");
 
@@ -32,16 +67,16 @@ let bookIndex;
 
 class display {
   //add book to myLibrary
-  static addBook(book) {
-    myLibrary.push(book);
-  }
+  // static addBook(book) {
+  //   myLibrary.push(book);
+  // }
 
-  static indexBook(book) {
-    bookIndex = myLibrary.indexOf(book);
-  }
+  // static indexBook(book) {
+  //   bookIndex = myLibrary.indexOf(book);
+  // }
 
   static displayCards() {
-    const books = myLibrary;
+    const books = Store.getBooks();
     books.forEach((book) => display.makeCard(book));
   }
 
@@ -96,6 +131,14 @@ class display {
       book.status = "Read";
     }
   }
+
+  static deleteBook(e) {
+    if (e.target.classList.contains("remove")) {
+      e.target.parentElement.parentElement.remove();
+      // let index = e.target.parentElement.parentElement.classList;
+      // myLibrary.splice(index, 1);
+    }
+  }
 }
 
 /// get form input to create new book
@@ -112,9 +155,18 @@ function createBook(e) {
   const status = document.querySelector("input[name=status]:checked").value;
 
   const book = new Book(title, auth, pages, status);
-  display.addBook(book);
-  display.indexBook(book);
+
+  // display.addBook(book);
+
+  //add book to local storage
+  Store.addBook(book);
+
+  // display.indexBook(book);
+
+  //add book to ui
   display.makeCard(book);
+
+  // clear form
   display.clearForm();
 
   // event: change status
@@ -132,9 +184,12 @@ document.addEventListener("DOMContentLoaded", display.displayCards);
 
 // event: remove book
 container.addEventListener("click", (e) => {
-  if (e.target.classList.contains("remove")) {
-    e.target.parentElement.parentElement.remove();
-    let index = e.target.parentElement.parentElement.classList;
-    myLibrary.splice(index, 1);
-  }
+  // remove from ui
+  display.deleteBook(e);
+
+  // remove from store
+  Store.removeBook(
+    e.target.parentElement.parentElement.childNodes[1].innerText,
+    e
+  );
 });
