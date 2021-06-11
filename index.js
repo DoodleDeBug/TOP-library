@@ -41,9 +41,10 @@ class Store {
     localStorage.setItem("books", JSON.stringify(books));
   }
   static removeBook(name, e) {
-    const books = Store.getBooks();
-    console.log(name);
     if (e.target.classList.contains("remove")) {
+      const books = Store.getBooks();
+      console.log(name);
+
       books.forEach((book, index) => {
         if (book.name === name) {
           books.splice(index, 1);
@@ -104,7 +105,7 @@ class display {
 
   //toggle status
   static toggleStatus(book, e) {
-    console.log("change");
+    console.log("changed");
     e.target.classList.toggle("read");
     if (e.target.innerText === "Read") {
       book.status = "Unread";
@@ -148,6 +149,7 @@ function createBook(e) {
 
   // event: change status
   container.addEventListener("click", (e) => {
+    console.log("lick");
     if (e.target.classList.contains("status")) {
       display.toggleStatus(book, e);
     }
@@ -165,8 +167,10 @@ container.addEventListener("click", (e) => {
   display.deleteBook(e);
 
   // remove from store
-  Store.removeBook(
-    e.target.parentElement.parentElement.childNodes[1].innerText,
-    e
-  );
+  if (e.target.innerText === "X") {
+    Store.removeBook(
+      e.target.parentElement.parentElement.childNodes[1].innerText,
+      e
+    );
+  }
 });
