@@ -1,3 +1,5 @@
+let myLibrary = [];
+
 function Book(name, author, pages, status) {
   // the constructor...
   this.name = name;
@@ -23,38 +25,38 @@ function toggleBookForm() {
 
 ///local storage
 
-class Store {
-  static getBooks() {
-    let books;
-    if (localStorage.getItem("books") === null) {
-      books = [];
-    } else {
-      books = JSON.parse(localStorage.getItem("books"));
-    }
+// class Store {
+//   static getBooks() {
+//     let books;
+//     if (localStorage.getItem("books") === null) {
+//       books = [];
+//     } else {
+//       books = JSON.parse(localStorage.getItem("books"));
+//     }
 
-    return books;
-  }
-  static addBook(book) {
-    const books = Store.getBooks();
-    books.push(book);
+//     return books;
+//   }
+//   static addBook(book) {
+//     const books = Store.getBooks();
+//     books.push(book);
 
-    localStorage.setItem("books", JSON.stringify(books));
-  }
-  static removeBook(name, e) {
-    if (e.target.classList.contains("remove")) {
-      const books = Store.getBooks();
-      console.log(name);
+//     localStorage.setItem("books", JSON.stringify(books));
+//   }
+//   static removeBook(name, e) {
+//     if (e.target.classList.contains("remove")) {
+//       const books = Store.getBooks();
+//       console.log(name);
 
-      books.forEach((book, index) => {
-        if (book.name === name) {
-          books.splice(index, 1);
-        }
-      });
+//       books.forEach((book, index) => {
+//         if (book.name === name) {
+//           books.splice(index, 1);
+//         }
+//       });
 
-      localStorage.setItem("books", JSON.stringify(books));
-    }
-  }
-}
+//       localStorage.setItem("books", JSON.stringify(books));
+//     }
+//   }
+// }
 
 //Add books to UI
 const container = document.querySelector(".book-container");
@@ -62,14 +64,24 @@ const container = document.querySelector(".book-container");
 let bookIndex;
 
 class display {
+  // add book to myLibrary
+  static addBook(book) {
+    myLibrary.push(book);
+  }
+
+  static indexBook(book) {
+    bookIndex = myLibrary.indexOf(book);
+  }
+
   static displayCards() {
-    const books = Store.getBooks();
+    const books = myLibrary;
     books.forEach((book) => display.makeCard(book));
   }
 
   static makeCard(book) {
     const card = document.createElement("div");
     card.classList.add("book-card");
+    card.classList.add(bookIndex);
     container.appendChild(card);
     const closeCard = document.createElement("div");
     closeCard.innerHTML = '<span class="remove x-btn">X</span>';
@@ -119,6 +131,9 @@ class display {
   static deleteBook(e) {
     if (e.target.classList.contains("remove")) {
       e.target.parentElement.parentElement.remove();
+      let index = e.target.parentElement.parentElement.classList;
+      myLibrary.splice(index, 1);
+      saveLocal();
     }
   }
 }
@@ -138,11 +153,14 @@ function createBook(e) {
 
   const book = new Book(title, auth, pages, status);
 
+  display.addBook(book);
+  display.indexBook(book);
+
   //add book to ui
   display.makeCard(book);
 
   //add book to local storage
-  Store.addBook(book);
+  // Store.addBook(book);
 
   // clear form
   display.clearForm();
@@ -153,13 +171,14 @@ function createBook(e) {
     if (e.target.classList.contains("status")) {
       display.toggleStatus(book, e);
     }
+    saveLocal();
   });
-
+  saveLocal();
   toggleBookForm();
 }
 
 ///event: display books
-document.addEventListener("DOMContentLoaded", display.displayCards);
+// document.addEventListener("DOMContentLoaded", display.displayCards);
 
 // event: remove book
 container.addEventListener("click", (e) => {
@@ -167,10 +186,24 @@ container.addEventListener("click", (e) => {
   display.deleteBook(e);
 
   // remove from store
-  if (e.target.innerText === "X") {
-    Store.removeBook(
-      e.target.parentElement.parentElement.childNodes[1].innerText,
-      e
-    );
-  }
+  //   if (e.target.innerText === "X") {
+  //     Store.removeBook(
+  //       e.target.parentElement.parentElement.childNodes[1].innerText,
+  //       e
+  //     );
+  //   }
 });
+
+// LOCAL STORAGE
+
+function saveLocal() {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function restoreLocal() {
+  myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+  if (myLibrary === null) myLibrary = [];
+  display.displayCards();
+}
+
+restoreLocal();
