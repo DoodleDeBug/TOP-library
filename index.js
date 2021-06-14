@@ -40,23 +40,29 @@ class display {
     const card = document.createElement("div");
     card.classList.add("book-card");
     container.appendChild(card);
+
     const closeCard = document.createElement("div");
     closeCard.innerHTML = '<span class="remove x-btn">X</span>';
     closeCard.classList.add("btn-container");
     card.appendChild(closeCard);
+
     const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = book.name;
     card.appendChild(title);
+
     const auth = document.createElement("p");
     auth.innerText = `Author: ${book.author}`;
     card.appendChild(auth);
+
     const page = document.createElement("p");
     page.innerText = `Pages: ${book.pages}`;
     card.appendChild(page);
+
     const stat = document.createElement("p");
     stat.innerText = `Status:`;
     card.appendChild(stat);
+
     const statBtn = document.createElement("button");
     statBtn.classList.add("btn");
     statBtn.classList.add("status");
@@ -118,19 +124,19 @@ function handleEvent(e) {
     e.target.parentElement.parentElement.remove(); // remove from ui
     let index = getBook(e.target.parentElement.nextSibling.innerText);
     myLibrary.splice(index, 1); // remove from array
-  } else if (e.target.innerText === "Read") {
+  } else if (e.target.innerText === "Read" || e.target.innerText === "Unread") {
     let index = getBook(e.target.parentElement.childNodes[1].innerText);
     e.target.classList.toggle("read");
-    myLibrary[index].status = "Unread";
-    e.target.innerText = "Unread";
-  } else if (e.target.innerText === "Unread") {
-    let index = getBook(e.target.parentElement.childNodes[1].innerText);
-    e.target.classList.toggle("read");
-    myLibrary[index].status = "Read";
-    e.target.innerText = "Read";
-  } else {
-    null;
+
+    if (e.target.innerText === "Read") {
+      myLibrary[index].status = "Unread";
+      e.target.innerText = "Unread";
+    } else {
+      myLibrary[index].status = "Read";
+      e.target.innerText = "Read";
+    }
   }
+
   saveLocal(); // save local storage
 }
 
