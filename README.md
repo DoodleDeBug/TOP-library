@@ -5,6 +5,7 @@ TOP project - LIBRARY
 ## What Went Well: 
 * looks nice
 * i got to explore classes and objects which i hadn't done a lot of before
+* first time making a modal
 * further practice on DOM manipulation
 
 ## Improvements:
