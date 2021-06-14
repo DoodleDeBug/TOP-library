@@ -12,5 +12,5 @@ TOP project - LIBRARY
 * code could be cleaner/drier
 * integrate firebase
 
-I had some difficulty figuring out how to remove cards/books but some googling later, I figured it out :)
-Also, this was the first time I'd used local storage so that was fun, still not *100%* on it but hoping to improve as I go :)
+I had a some difficulty figuring out how to remove cards/books but some googling later, I figured it out :)
+Also, this was the first time I'd used local storage and I was really stuck on getting the change of status to save, after a lot of trying I took a peek at some other code and found a solution, feels like cheating but at least I learnt something from it - hopefully next time I'll be able to figure it out on my own.
