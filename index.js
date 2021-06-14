@@ -92,6 +92,13 @@ function createBook(e) {
   const pages = document.querySelector("#pages").value;
   const status = document.querySelector("input[name=status]:checked").value;
 
+  if (getBook(title) !== null) {
+    alert("A book with that title already exists in your library");
+    // clear form
+    display.clearForm();
+    return;
+  }
+
   const book = new Book(title, auth, pages, status);
 
   //add book object to myLibrary array
