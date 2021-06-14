@@ -9,12 +9,11 @@ function Book(name, author, pages, status) {
 }
 
 ///BRing up form for new book
-
 const newBtn = document.querySelector(".new");
-newBtn.addEventListener("click", toggleBookForm); //click button, toggle modal
+newBtn.addEventListener("click", toggleBookForm); //click button, open modal
 
 const close = document.querySelector(".close-modal");
-close.addEventListener("click", toggleBookForm); //click button, toggle modal
+close.addEventListener("click", toggleBookForm); //click button, close modal
 
 const modal = document.querySelector(".modal");
 
@@ -67,15 +66,11 @@ class display {
   // add book to myLibrary
   static addBook(book) {
     myLibrary.push(book);
-  }
-
-  static indexBook(book) {
     bookIndex = myLibrary.indexOf(book);
   }
 
   static displayCards() {
-    const books = myLibrary;
-    books.forEach((book) => display.makeCard(book));
+    myLibrary.forEach((book) => display.makeCard(book)); // loop through array to output card onto screen
   }
 
   static makeCard(book) {
@@ -106,6 +101,16 @@ class display {
     book.status === "Read" ? statBtn.classList.add("read") : null;
     statBtn.innerText = `${book.status}`;
     card.appendChild(statBtn);
+
+    // event: change status
+    container.addEventListener("click", (e) => {
+      console.log("click in container");
+      if (e.target.classList.contains("status")) {
+        console.log("status");
+        display.toggleStatus(book, e);
+      }
+      saveLocal();
+    });
   }
 
   //clear the form
@@ -117,7 +122,7 @@ class display {
 
   //toggle status
   static toggleStatus(book, e) {
-    console.log("changed");
+    console.log("togglestatus has run");
     e.target.classList.toggle("read");
     if (e.target.innerText === "Read") {
       book.status = "Unread";
@@ -154,7 +159,6 @@ function createBook(e) {
   const book = new Book(title, auth, pages, status);
 
   display.addBook(book);
-  display.indexBook(book);
 
   //add book to ui
   display.makeCard(book);
@@ -165,14 +169,6 @@ function createBook(e) {
   // clear form
   display.clearForm();
 
-  // event: change status
-  container.addEventListener("click", (e) => {
-    console.log("lick");
-    if (e.target.classList.contains("status")) {
-      display.toggleStatus(book, e);
-    }
-    saveLocal();
-  });
   saveLocal();
   toggleBookForm();
 }
