@@ -1,11 +1,10 @@
-let myLibrary = [];
-
-function Book(name, author, pages, status) {
-  // the constructor...
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.status = status;
+class Book {
+  constructor(name, author, pages, status) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+  }
 }
 
 ///BRing up form for new book
@@ -19,13 +18,13 @@ const modal = document.querySelector(".modal");
 
 function toggleBookForm() {
   modal.classList.toggle("hidden"); // show modal
-  display.clearForm();
+  Display.clearForm();
 }
 
 //Add books to UI
 const container = document.querySelector(".book-container");
 
-class display {
+class Display {
   // add book to myLibrary
   static addBook(book) {
     myLibrary.push(book);
@@ -33,7 +32,7 @@ class display {
   }
 
   static displayCards() {
-    myLibrary.forEach((book) => display.makeCard(book)); // loop through array to output card onto screen
+    myLibrary.forEach((book) => Display.makeCard(book)); // loop through array to output card onto screen
   }
 
   static makeCard(book) {
@@ -95,20 +94,20 @@ function createBook(e) {
   if (getBook(title) !== null) {
     alert("A book with that title already exists in your library");
     // clear form
-    display.clearForm();
+    Display.clearForm();
     return;
   }
 
   const book = new Book(title, auth, pages, status);
 
   //add book object to myLibrary array
-  display.addBook(book);
+  Display.addBook(book);
 
   //add book to ui
-  display.makeCard(book);
+  Display.makeCard(book);
 
   // clear form
-  display.clearForm();
+  Display.clearForm();
 
   //close form
   toggleBookForm();
@@ -155,7 +154,7 @@ function saveLocal() {
 function restoreLocal() {
   myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
   if (myLibrary === null) myLibrary = [];
-  display.displayCards();
+  Display.displayCards();
 }
 
 restoreLocal();
